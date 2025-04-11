@@ -2,6 +2,7 @@ from flask import Flask,render_template,request,redirect,url_for,flash
 from db import db_getConnection
 
 app = Flask(__name__)
+app.secret_key = 'clave-super-secreta'
 
 #Ruta Principa 
 @app.route("/",methods=['GET','POST'])
@@ -24,7 +25,7 @@ def reg_Evento():
         cursor = conexion.cursor()
         cursor.execute(query,(nombre,fecha))
         conexion.commit()
-        print("Registro Exitoso")
+        flash("Registro Exitoso.","success")
         return redirect(url_for('principal'))
     else:
         print("Error al insertar el registro")
@@ -38,11 +39,14 @@ def reg_Grupo():
             nombre = request.form['nombre']
             edad = request.form['edad']
             es = request.form['tipo']
+            if not idalumno or not nombre or not edad or not es:
+                #flash("Por favor complete todos los campos antes de enviar.")
+                return redirect(url_for('reg_Grupo'))  # o el nombre correcto de tu vista/formulario
             query = "INSERT INTO familia(idalumno,nombre,edad,es)VALUES(%s,%s,%s,%s)"
             cursor = conexion.cursor()
             cursor.execute(query,(idalumno,nombre,edad,es))
             conexion.commit()
-            print("Registro Insertado")
+            flash("Registro Exitoso.","success")
             return redirect(url_for('principal'))
         else:
             print("Error al Guardar el Registro")
@@ -63,10 +67,10 @@ def reg_Alumno():
         cursor = conexion.cursor()
         cursor.execute(query,(apenomb,dni,colegio,tutor,dnitutor,telefono))
         conexion.commit()
-        print('Registro Exitoso')
+        flash("Registro Exitoso.","success")
         return redirect(url_for('principal'))
     else:
-        print("Error al Guardar el Registro")
+        flash("No fue posible ingresar el registro.","danger")
     
     # Agregar Personas
     

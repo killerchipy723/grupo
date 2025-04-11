@@ -90,10 +90,19 @@
                 <button class="toggler-btn" type="button">
                     <i class="lni lni-text-align-left"></i>
                 </button>
+                <H3>SISTEMA DE GESTION</H3>
             </nav>
             <main class="p-3">
-                <div class="container-fluid">
-                  
+                {% with mensajes = get_flashed_messages(with_categories=true) %}
+                {% if mensajes %}
+                  <ul class="flashes" id="msgs">
+                    {% for categoria, msg in mensajes %}
+                      <li class="alert alert-{{ categoria }}" role="alert">{{ msg }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              {% endwith %}
+                <div class="container-fluid">                  
                     <section id="alumnos" class="seccion">
                         <h2>Registro de Alumnos</h2>
                         <form action="/Registro" method="post">
@@ -121,7 +130,7 @@
                                 <label for="">Teléfono de contacto</label>
                                 <input type="text" name="telefono" class="form-control" required>
                             </div>
-                            <input type="submit" name="registrar" value="Registrar" class="btn btn-primary">
+                            <input type="submit" name="registrar" value="Registrar" class="btn btn-primary mt-3">
                         </form>
                     </section>
             <!-- Seccion para agregar evento-->
@@ -145,12 +154,14 @@
                         <form action="/RegGrupo" method="POST">
                             <div class="form-group">
                                 <label for="Nombre del Evento">Seleccione el Alumno</label>
-                                {%for alu in alumno%}
+                               
                                 <select name="alumno" id="" class="form-control">                                    
                                     <option disabled selected value="">--- Seleccione el Alumno ---</option>
-                                    <option value="{{alu[0]}}">{{alu[1]}}</option>                                                               
+                                    {%for alu in alumno%}
+                                    <option value="{{alu[0]}}">{{alu[1]}}</option> 
+                                    {%endfor%}                                                              
                                 </select>
-                                {%endfor%}
+                                
                             </div>
                                 <div class="form-group">
                                     <label for="Nombre del Evento">Apellido y Nombre</label>
@@ -192,6 +203,12 @@
                 const secciones = document.querySelectorAll('.seccion');
                 secciones.forEach(seccion => {
                     seccion.classList.remove('visible');
+                });
+
+              // Ocultar los mensajes flash si existen
+                const flashes = document.querySelectorAll('.flashes');
+                flashes.forEach(flash => {
+                    flash.innerHTML = ''; // Elimina los mensajes
                 });
         
                 const activa = document.getElementById(id);

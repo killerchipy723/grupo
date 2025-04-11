@@ -115,7 +115,11 @@ a.sidebar-link:hover {
 .seccion.visible {
     display: block;
 }
-
+form{
+    border: #b3a8a8 solid 2px;
+    padding: 15px;
+    border-radius: 8px;
+}
 
 /* Screen size less than 768px */
 
