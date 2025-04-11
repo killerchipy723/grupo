@@ -39,6 +39,9 @@
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link d-block ps-3 small  ms-5 " style="font-size: 13px;" onclick="mostrarSeccion('grupo')">Agregar Miembros</a>
                         </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link d-block ps-3 small  ms-5 " style="font-size: 13px;" onclick="mostrarSeccion('colegio')">Agregar Colegio</a>
+                        </li>
                     </ul>
                 </li>
          
@@ -214,6 +217,29 @@
                                 <input type="submit" name="enviar" value="Registrar" class="btn btn-primary mt-3">                           
                         </form>
                     </section>
+                     <!-- Seccion de colegios -->
+                     <section id="colegio" class="seccion">
+                        <h2>Agregar Colegio</h2>
+                        <form action="/Colegio" method="POST">
+                            <div class="form-group">
+                                <label for="Colegio">Nombre del Colegio</label>
+                                <input type="text" name="nombre" class="form-control" required>
+                            </div>
+                                <div class="form-group">
+                                    <label for="Nombre del Evento">Localidad/Ciudad</label>
+                                    <select class="form-control" name="localidad" id="">
+                                        <option disabled selected value="">---Seleccione la Localidad---</option>
+                                        <option value="Metán">Metán</option>
+                                        <option value="Río Piedras">Río Piedras</option>
+                                        <option value="El Galpón">El Galpón</option>
+                                        <option value="Rosario de la Frontera">Rosario de la Frontera</option>
+                                        <option value="Otro">Otro</option>
+                                    </select>
+                                </div>
+                                <input type="submit" name="enviar" value="Registrar" class="btn btn-primary mt-3">                           
+                        </form>
+                    </section>
+
                 </div>
             </main>
         </div>

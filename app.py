@@ -19,6 +19,21 @@ def principal():
         data2 = cursor2.fetchall()
     return render_template("index.html",alumno=data,colegio=data2)
 
+@app.route("/Colegio",methods=['POST'])
+def agregar_Colegio():
+    conexion = db_getConnection()
+    if request.method=='POST':
+        nombre = request.form['nombre']
+        localidad = request.form['localidad']
+        query = 'INSERT INTO colegio(nombre,localidad)VALUES(%s,%s)'
+        cursor = conexion.cursor()
+        cursor.execute(query,(nombre,localidad))
+        conexion.commit()
+        flash('Registro Exitoso','success')
+        return redirect(url_for('principal'))
+    else:
+        flash('Error al guardar el Registro','danger')
+
 @app.route("/Evento",methods=['POST'])
 def reg_Evento():
     conexion = db_getConnection()
