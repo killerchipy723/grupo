@@ -10,10 +10,14 @@ def principal():
     if request.method=='GET':
         conexion = db_getConnection()
         query = "select * from alumno"
+        query2 = "select * from colegio"
+        cursor2 = conexion.cursor()
         cursor = conexion.cursor()
         cursor.execute(query)
+        cursor2.execute(query2)
         data = cursor.fetchall()
-    return render_template("index.html",alumno=data)
+        data2 = cursor2.fetchall()
+    return render_template("index.html",alumno=data,colegio=data2)
 
 @app.route("/Evento",methods=['POST'])
 def reg_Evento():
@@ -59,11 +63,11 @@ def reg_Alumno():
     if request.method =='POST':
         apenomb = request.form['apenomb']
         dni = request.form['dni']
-        colegio = request.form['colegio']
+        colegio = request.form['idcolegio']
         tutor = request.form['tutor']
         dnitutor = request.form['dnitutor']
         telefono = request.form['telefono']
-        query = "INSERT INTO alumno (apenomb,dni,colegio,tutor,dnitutor,telefono)VALUES(%s,%s,%s,%s,%s,%s)"
+        query = "INSERT INTO alumno (apenomb,dni,idcolegio,tutor,dnitutor,telefono)VALUES(%s,%s,%s,%s,%s,%s)"
         cursor = conexion.cursor()
         cursor.execute(query,(apenomb,dni,colegio,tutor,dnitutor,telefono))
         conexion.commit()

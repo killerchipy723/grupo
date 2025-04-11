@@ -24,25 +24,39 @@
             <!-- Sidebar Navigation -->
             <ul class="sidebar-nav p-0">
                 <li class="sidebar-header">
-                  Herramientas y Componentes
+                  Alumnos y Personas
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link" onclick="mostrarSeccion('alumnos')">
-                        <i class="lni lni-user"></i>
-                        <span>Reg. de Alumnos</span>
+                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                        data-bs-target="#aluMenu" aria-expanded="true" aria-controls="aluMenu">
+                        <i class="lni lni-protection"></i>
+                        <span>Alumnos</span>
                     </a>
+                    <ul id="aluMenu" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link d-block ps-3 small ms-5" style="font-size: 13px;" onclick="mostrarSeccion('alumnos')">Registrar Alumnos</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link d-block ps-3 small  ms-5 " style="font-size: 13px;" onclick="mostrarSeccion('grupo')">Agregar Miembros</a>
+                        </li>
+                    </ul>
                 </li>
+         
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link" onclick="mostrarSeccion('grupo')">
-                        <i class="lni lni-user"></i>
-                        <span>Añadir Personas</span>
+                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                    data-bs-target="#evtoMenu" aria-expanded="true" aria-controls="evtoMenu">
+                    <i class="lni lni-agenda"></i>
+                    <span>Eventos</span>
+                </a>
                     </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link" onclick="mostrarSeccion('evento')">
-                        <i class="lni lni-agenda"></i>
-                        <span>Eventos</span>
-                    </a>
+                    <ul id="evtoMenu" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link d-block ps-3 small ms-5" style="font-size: 13px;" onclick="mostrarSeccion('evento')">Registrar Evento</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link d-block ps-3 small  ms-5 " style="font-size: 13px;" onclick="mostrarSeccion('verEvento')">Ver Eventos</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="sidebar-header">
                     Eventos
@@ -106,28 +120,39 @@
                     <section id="alumnos" class="seccion">
                         <h2>Registro de Alumnos</h2>
                         <form action="/Registro" method="post">
-                            <div class="from-group">
-                                <label for="">Apellido y Nombre</label>
-                                <input type="text" name="apenomb" class="form-control" required>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                  <label for=""><b>Apellido y Nombre del Alumno</b></label>
+                                  <input type="text" name="apenomb" class="form-control" required>
+                                </div>
+                              
+                                <div class="form-group col-md-6">
+                                  <label for=""><b>DNI del Alumno</b></label>
+                                  <input type="text" name="dni" class="form-control" required>
+                                </div>
+                              </div>
+                            <div class="form-group">
+                                <label for=""><b>Colegio</b></label>
+                                <select class="form-control" name="idcolegio" id="">
+                                    <option disabled selected value="">--- Seleccione el Colegio ---</option>
+                                    {%for col in colegio%}
+                                    <option value="{{col[0]}}">{{col[1]}}</option>
+                                    {%endfor%}
+                                </select>
                             </div>
-                            <div class="from-group">
-                                <label for="">DNI</label>
-                                <input type="text" name="dni" class="form-control" required>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for=""><b>Nombre y Apellido del Tutor</b></label>
+                                    <input type="text" name="tutor" class="form-control" required>
+                                </div>
+                                <div class="from-group col-md-6">
+                                    <label for=""><b>DNI del Tutor</b></label>
+                                    <input type="text" name="dnitutor" class="form-control" required>
+                                </div>
                             </div>
+                            
                             <div class="from-group">
-                                <label for="">Colegio</label>
-                                <input type="text" name="colegio" class="form-control" required>
-                            </div>
-                            <div class="from-group">
-                                <label for="">Nombre y Apellido del Tutor</label>
-                                <input type="text" name="tutor" class="form-control" required>
-                            </div>
-                            <div class="from-group">
-                                <label for="">DNI del Tutor</label>
-                                <input type="text" name="dnitutor" class="form-control" required>
-                            </div>
-                            <div class="from-group">
-                                <label for="">Teléfono de contacto</label>
+                                <label for=""><b>Teléfono de contacto</b></label>
                                 <input type="text" name="telefono" class="form-control" required>
                             </div>
                             <input type="submit" name="registrar" value="Registrar" class="btn btn-primary mt-3">
@@ -177,6 +202,9 @@
                                         <label for="">Tipo de Menú</label>
                                         <select name="tipo" class="form-control">
                                             <option disabled selected value="">--- Seleccione el Tipo de Menú ---</option>
+                                            <option value="Adulto">Adulto</option>
+                                            <option value="Joven">Joven</option>
+                                            <option value="Niño">Niño</option>
                                             <option value="Celiaco">Celiaco</option>
                                             <option value="Vegetariano">Vegetariano</option>
                                             <option value="Vegano">Vegano</option>
