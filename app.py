@@ -12,26 +12,33 @@ def principal():
     cursor2 = conexion.cursor()
     query = "SELECT * FROM alumno"
     query2 = "SELECT * FROM colegio"
+    query3 = "SELECT * FROM evento"
     cursor.execute(query)
     cursor2.execute(query2)
+    cursor3 = conexion.cursor()
+    cursor3.execute(query3)
     data = cursor.fetchall()
     data2 = cursor2.fetchall()
+    data3 = cursor3.fetchall()
 
-    return render_template("index.html", alumno=data, colegio=data2)
+    return render_template("index.html", alumno=data, colegio=data2,evento=data3)
 
 #------------------------- Ruta Buscar Alumnos -------------------------------------------
 @app.route("/buscar_alumnos")
 def buscar_alumnos():
     q = request.args.get('q', '').lower()
     conexion = db_getConnection()
-    cursor = conexion.cursor()    
+    cursor = conexion.cursor()
+
     cursor.execute(
-        "SELECT apenomb, dni FROM alumno WHERE LOWER(apenomb) LIKE %s OR dni LIKE %s",
+        "SELECT idalumno, apenomb, dni FROM alumno WHERE LOWER(apenomb) LIKE %s OR dni LIKE %s",
         (f'%{q}%', f'%{q}%')
     )
     resultados = cursor.fetchall()
 
-    return jsonify([{'nombre': r[0], 'dni': r[1]} for r in resultados])
+    # Incluí el idalumno en la respuesta
+    return jsonify([{'idalumno': r[0], 'nombre': r[1], 'dni': r[2]} for r in resultados])
+
 
 
 #------------------------ Ruta para Registrar Colegio-------------------------------------
@@ -112,27 +119,33 @@ def reg_Alumno():
     
     
     # -------------- Ruta para Generar Fichas --------------------------------------------------
-@app.route("/Ficha",methods=['GET','POST'])
+@app.route("/Ficha", methods=['GET', 'POST'])
 def gen_ficha():
     conexion = db_getConnection()
     try:
-        if request.method=='POST':
+        if request.method == 'POST':
             idevento = request.form['idevento']
             idalumno = request.form['idalumno']
             fecha = request.form['fecha']
             estado = request.form['estado']
             importe = request.form['importe']
             obs = request.form['obs']
-            query = 'INSERT INTO ficha(idevento,idalumno,fecha,estado,importe,obs)VALUES(%s,%s,%s,%s,%s,%s)'
+
+            query = 'INSERT INTO ficha(idevento, idalumno, fecha, estado, importe, obs) VALUES (%s, %s, %s, %s, %s, %s)'
             cursor = conexion.cursor()
-            cursor.execute(query,(idevento,idalumno,fecha,estado,importe,obs))
+            cursor.execute(query, (idevento, idalumno, fecha, estado, importe, obs))
             conexion.commit()
-            flash('La ficha se registró correctamente','success')
-            return redirect(url_for('gen_ficha'))
+
+            flash('La ficha se registró correctamente', 'success')
+            return redirect(url_for('principal', seccion='regFicha'))
         else:
-            flash('No se pudo registrar la ficha, verifique los datos ingresados')
+            flash('No se pudo registrar la ficha, verifique los datos ingresados', 'danger')
     except Exception as e:
-        flash('Se produjo el  siguiente error: {e}')
+        flash(f'Se produjo el siguiente error: {e}', 'danger')
+
+    
+    return redirect(url_for('principal', seccion='regFicha'))
+
 
 
 

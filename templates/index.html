@@ -257,14 +257,43 @@
                     </section>
                     <!--Seccion para registrar las fichas -->
                     <section id="regFicha" class="seccion">
-                        <h2>Agregar Colegio</h2>
-                        <form action="/" method="POST">
+                        <h2>Registro de Fichas</h2>
+                        <form action="/Ficha" method="POST">
+                            <input type="hidden" name="idalumno" id="idalumno">
+                            <div class="form-group">
+                                <label for="">Evento</label>
+                                <select name="idevento" id="" class="form-control">
+                                    <option disabled selected value="">---Seleccione el Evento---</option>
+                                    {%for evt in evento%}
+                                        <option value="{{evt[0]}}">{{evt[1]}}</option>
+                                    {%endfor%}
+                                </select>                                
+                            </div>                            
                             <div class="form-group">
                                 <label for="buscador">Buscar Alumno por DNI o Nombre:</label>
                                 <input type="text" id="buscador" class="form-control" placeholder="Escriba aquí...">
                                 <ul id="sugerencias" class="list-group mt-2" style="display: none;"></ul>
                             </div>
-
+                            <div class="form-group">
+                                <label for="">Fecha</label>
+                                <input type="date" name="fecha" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Estado</label>
+                                <select name="estado" class="form-control">
+                                    <option disabled selected value="">---Seleccione el Estado---</option>
+                                    <option value="Activas">Activo</option>
+                                    <option value="Activas">Inactivo</option>                                    
+                                </select>
+                                <div class="form-group">
+                                    <label for="">Importe</label>
+                                    <input type="text" name="importe" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Observaciones</label>
+                                    <textarea name="obs" class="form-control" required></textarea>
+                                </div>
+                            </div>
                             <input type="submit" name="enviar" value="Registrar" class="btn btn-primary mt-3">
                         </form>
                     </section>
