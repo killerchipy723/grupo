@@ -201,6 +201,19 @@ a.sidebar-link:hover {
     letter-spacing: 0.5px;
   }
 
+  input[type="text"] {
+    text-transform: capitalize;
+  }
+
+  .flash-message {
+    transition: opacity 1s ease;
+  }
+  
+  .flash-message.fade-out {
+    opacity: 0;
+  }
+  
+
 /* Screen size less than 768px */
 
 @media (max-width:768px) {

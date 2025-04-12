@@ -16,15 +16,15 @@
 <body>
     <div class="d-flex">
         <!-- Sidebar -->
-        <aside id="sidebar" class="sidebar-toggle">           
-            <div class="sidebar-logo">                
-                <img  class="logo-grupo" src="/static/img/logo.png" alt="">
+        <aside id="sidebar" class="sidebar-toggle">
+            <div class="sidebar-logo">
+                <img class="logo-grupo" src="/static/img/logo.png" alt="">
                 <a href="#">Grupo Gráfico</a>
             </div>
             <!-- Sidebar Navigation -->
             <ul class="sidebar-nav p-0">
                 <li class="sidebar-header">
-                  Alumnos y Personas
+                    Alumnos y Personas
                 </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
@@ -34,45 +34,51 @@
                     </a>
                     <ul id="aluMenu" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link d-block ps-3 small ms-5" style="font-size: 13px;" onclick="mostrarSeccion('alumnos')">Registrar Alumnos</a>
+                            <a href="#" class="sidebar-link d-block ps-3 small ms-5" style="font-size: 13px;"
+                                onclick="mostrarSeccion('alumnos')">Registrar Alumnos</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link d-block ps-3 small  ms-5 " style="font-size: 13px;" onclick="mostrarSeccion('grupo')">Agregar Miembros</a>
+                            <a href="#" class="sidebar-link d-block ps-3 small  ms-5 " style="font-size: 13px;"
+                                onclick="mostrarSeccion('grupo')">Agregar Miembros</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link d-block ps-3 small  ms-5 " style="font-size: 13px;" onclick="mostrarSeccion('colegio')">Agregar Colegio</a>
+                            <a href="#" class="sidebar-link d-block ps-3 small  ms-5 " style="font-size: 13px;"
+                                onclick="mostrarSeccion('colegio')">Agregar Colegio</a>
                         </li>
                     </ul>
                 </li>
-         
+
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                    data-bs-target="#evtoMenu" aria-expanded="true" aria-controls="evtoMenu">
-                    <i class="lni lni-agenda"></i>
-                    <span>Eventos</span>
-                </a>
+                        data-bs-target="#evtoMenu" aria-expanded="true" aria-controls="evtoMenu">
+                        <i class="lni lni-agenda"></i>
+                        <span>Eventos</span>
+                    </a>
                     </a>
                     <ul id="evtoMenu" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link d-block ps-3 small ms-5" style="font-size: 13px;" onclick="mostrarSeccion('evento')">Registrar Evento</a>
+                            <a href="#" class="sidebar-link d-block ps-3 small ms-5" style="font-size: 13px;"
+                                onclick="mostrarSeccion('evento')">Registrar Evento</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link d-block ps-3 small  ms-5 " style="font-size: 13px;" onclick="mostrarSeccion('verEvento')">Ver Eventos</a>
+                            <a href="#" class="sidebar-link d-block ps-3 small  ms-5 " style="font-size: 13px;"
+                                onclick="mostrarSeccion('verEvento')">Ver Eventos</a>
                         </li>
                     </ul>
                 </li>
                 <li class="sidebar-header">
-                    Eventos
+                    Ficha de Alumno
                 </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                         data-bs-target="#auth" aria-expanded="true" aria-controls="auth">
                         <i class="lni lni-protection"></i>
-                        <span>Pagos</span>
+                        <span>Registro de Fichas</span>
                     </a>
                     <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Login</a>
+                            <a href="#" class="sidebar-link d-block ps-3 small  ms-5 " style="font-size: 13px;"
+                                onclick="mostrarSeccion('regFicha')">Registrar una Ficha</a>
                         </li>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link">Register</a>
@@ -109,31 +115,41 @@
                 </button>
                 <H3>SISTEMA DE GESTION</H3>
             </nav>
-            <main class="p-3">
+            <!-- Mensaje de Confirmacion -->
+            <div class="msg" id="msage">
                 {% with mensajes = get_flashed_messages(with_categories=true) %}
-                {% if mensajes %}
-                  <ul class="flashes" id="msgs">
-                    {% for categoria, msg in mensajes %}
-                      <li class="alert alert-{{ categoria }}" role="alert">{{ msg }}</li>
-                    {% endfor %}
-                  </ul>
-                {% endif %}
-              {% endwith %}
-                <div class="container-fluid">                  
+            {% if mensajes %}
+            <div class="container mt-3 flashes" id="msgs">
+                {% for categoria, msg in mensajes %}
+                <div class="alert alert-{{ categoria }} flash-message alert-dismissible fade show" role="alert">
+                    {{ msg }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+            </div>
+            <main class="p-3">              
+                
+                <!-- Secciones -->
+                <div class="container-fluid">
+                    
+                    <!-- Registro de alumnos -->
                     <section id="alumnos" class="seccion">
                         <h2>Registro de Alumnos</h2>
                         <form action="/Registro" method="post">
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                  <label for=""><b>Apellido y Nombre del Alumno</b></label>
-                                  <input type="text" name="apenomb" class="form-control" required>
+                                    <label for=""><b>Apellido y Nombre del Alumno</b></label>
+                                    <input type="text" name="apenomb" class="form-control" required>
                                 </div>
-                              
+
                                 <div class="form-group col-md-6">
-                                  <label for=""><b>DNI del Alumno</b></label>
-                                  <input type="text" name="dni" class="form-control" required>
+                                    <label for=""><b>DNI del Alumno</b></label>
+                                    <input type="number" name="dni" class="form-control" required>
                                 </div>
-                              </div>
+                            </div>
                             <div class="form-group">
                                 <label for=""><b>Colegio</b></label>
                                 <select class="form-control" name="idcolegio" id="">
@@ -150,10 +166,9 @@
                                 </div>
                                 <div class="from-group col-md-6">
                                     <label for=""><b>DNI del Tutor</b></label>
-                                    <input type="text" name="dnitutor" class="form-control" required>
+                                    <input type="number" name="dnitutor" class="form-control" required>
                                 </div>
                             </div>
-                            
                             <div class="from-group">
                                 <label for=""><b>Teléfono de contacto</b></label>
                                 <input type="text" name="telefono" class="form-control" required>
@@ -161,7 +176,7 @@
                             <input type="submit" name="registrar" value="Registrar" class="btn btn-primary mt-3">
                         </form>
                     </section>
-            <!-- Seccion para agregar evento-->
+                    <!-- Seccion para agregar evento-->
                     <section id="evento" class="seccion">
                         <h2>Registrar Evento</h2>
                         <form action="/Evento" method="POST">
@@ -169,11 +184,11 @@
                                 <label for="Nombre del Evento">Nombre del Evento</label>
                                 <input type="text" name="nombre" class="form-control" required>
                             </div>
-                                <div class="form-group">
-                                    <label for="Nombre del Evento">Fecha del Evento</label>
-                                    <input type="date" name="fecha" class="form-control" required>
-                                </div>
-                                <input type="submit" name="enviar" value="Registrar" class="btn btn-primary mt-3">                           
+                            <div class="form-group">
+                                <label for="Nombre del Evento">Fecha del Evento</label>
+                                <input type="date" name="fecha" class="form-control" required>
+                            </div>
+                            <input type="submit" name="enviar" value="Registrar" class="btn btn-primary mt-3">
                         </form>
                     </section>
                     <!-- Seccion de Grupo Familiares -->
@@ -182,92 +197,97 @@
                         <form action="/RegGrupo" method="POST">
                             <div class="form-group">
                                 <label for="Nombre del Evento">Seleccione el Alumno</label>
-                               
-                                <select name="alumno" id="" class="form-control">                                    
+
+                                <select name="alumno" id="" class="form-control">
                                     <option disabled selected value="">--- Seleccione el Alumno ---</option>
                                     {%for alu in alumno%}
-                                    <option value="{{alu[0]}}">{{alu[1]}}</option> 
-                                    {%endfor%}                                                              
-                                </select>                                
+                                    <option value="{{alu[0]}}">{{alu[1]}}</option>
+                                    {%endfor%}
+                                </select>
                             </div>
+                            <div class="form-group">
+                                <label for="Nombre del Evento">Apellido y Nombre</label>
+                                <input type="text" name="nombre" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Edad</label>
+                                <select name="edad" class="form-control">
+                                    <option class="form-control" disabled selected value="">--- Seleccione la Edad ---
+                                    </option>
+                                    <option value="Mayor de Edad">Mayor de Edad</option>
+                                    <option value="Menor de Edad">Menor de Edad</option>
+                                </select>
                                 <div class="form-group">
-                                    <label for="Nombre del Evento">Apellido y Nombre</label>
-                                    <input type="text" name="nombre" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Edad</label>
-                                    <select name="edad" class="form-control">
-                                        <option class="form-control" disabled selected value="">--- Seleccione la Edad ---</option>
-                                        <option value="Mayor de Edad">Mayor de Edad</option>
-                                        <option value="Menor de Edad">Menor de Edad</option>
+                                    <label for="">Tipo de Menú</label>
+                                    <select name="tipo" class="form-control">
+                                        <option disabled selected value="">--- Seleccione el Tipo de Menú ---</option>
+                                        <option value="Adulto">Adulto</option>
+                                        <option value="Joven">Joven</option>
+                                        <option value="Niño">Niño</option>
+                                        <option value="Celiaco">Celiaco</option>
+                                        <option value="Vegetariano">Vegetariano</option>
+                                        <option value="Vegano">Vegano</option>
+                                        <option value="Otro">Otro</option>
                                     </select>
-                                    <div class="form-group">
-                                        <label for="">Tipo de Menú</label>
-                                        <select name="tipo" class="form-control">
-                                            <option disabled selected value="">--- Seleccione el Tipo de Menú ---</option>
-                                            <option value="Adulto">Adulto</option>
-                                            <option value="Joven">Joven</option>
-                                            <option value="Niño">Niño</option>
-                                            <option value="Celiaco">Celiaco</option>
-                                            <option value="Vegetariano">Vegetariano</option>
-                                            <option value="Vegano">Vegano</option>
-                                            <option value="Otro">Otro</option>                                            
-                                        </select>
-                                </div>                                
-                                <input type="submit" name="enviar" value="Registrar" class="btn btn-primary mt-3">                           
+                                </div>
+                                <input type="submit" name="enviar" value="Registrar" class="btn btn-primary mt-3">
                         </form>
                     </section>
-                     <!-- Seccion de colegios -->
-                     <section id="colegio" class="seccion">
+                    <!-- Seccion de colegios -->
+                    <section id="colegio" class="seccion">
                         <h2>Agregar Colegio</h2>
                         <form action="/Colegio" method="POST">
                             <div class="form-group">
                                 <label for="Colegio">Nombre del Colegio</label>
                                 <input type="text" name="nombre" class="form-control" required>
                             </div>
-                                <div class="form-group">
-                                    <label for="Nombre del Evento">Localidad/Ciudad</label>
-                                    <select class="form-control" name="localidad" id="">
-                                        <option disabled selected value="">---Seleccione la Localidad---</option>
-                                        <option value="Metán">Metán</option>
-                                        <option value="Río Piedras">Río Piedras</option>
-                                        <option value="El Galpón">El Galpón</option>
-                                        <option value="Rosario de la Frontera">Rosario de la Frontera</option>
-                                        <option value="Otro">Otro</option>
-                                    </select>
-                                </div>
-                                <input type="submit" name="enviar" value="Registrar" class="btn btn-primary mt-3">                           
+                            <div class="form-group">
+                                <label for="Nombre del Evento">Localidad/Ciudad</label>
+                                <select class="form-control" name="localidad" id="">
+                                    <option disabled selected value="">---Seleccione la Localidad---</option>
+                                    <option value="Metán">Metán</option>
+                                    <option value="Río Piedras">Río Piedras</option>
+                                    <option value="El Galpón">El Galpón</option>
+                                    <option value="Rosario de la Frontera">Rosario de la Frontera</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+                            <input type="submit" name="enviar" value="Registrar" class="btn btn-primary mt-3">
                         </form>
                     </section>
+                    <!--Seccion para registrar las fichas -->
+                    <section id="regFicha" class="seccion">
+                        <h2>Agregar Colegio</h2>
+                        <form action="/" method="POST">
+                            <div class="form-group">
+                                <label for="buscador">Buscar Alumno por DNI o Nombre:</label>
+                                <input type="text" id="buscador" class="form-control" placeholder="Escriba aquí...">
+                                <ul id="sugerencias" class="list-group mt-2" style="display: none;"></ul>
+                            </div>
 
+                            <input type="submit" name="enviar" value="Registrar" class="btn btn-primary mt-3">
+                        </form>
+                    </section>
                 </div>
             </main>
         </div>
     </div>
-    <script src="/static/js/script.js"></script>
+   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-        <script>
-            function mostrarSeccion(id) {
-                const secciones = document.querySelectorAll('.seccion');
-                secciones.forEach(seccion => {
-                    seccion.classList.remove('visible');
-                });
 
-              // Ocultar los mensajes flash si existen
-                const flashes = document.querySelectorAll('.flashes');
-                flashes.forEach(flash => {
-                    flash.innerHTML = ''; 
-                });
-        
-                const activa = document.getElementById(id);
-                if (activa) {
-                    activa.classList.add('visible');
-                }
-            }
-        </script>
-        
+    <script src="/static/js/script.js"></script>
+    <!-- Mostrar Secciones Activas-->
+    <script src="/static/js/mostrar_Seccion.js"></script>
+    <!-- Buscar Alumnos-->
+    <script src="/static/js/buscar_Alu.js"></script>
+    <!--Scrip para permanecer la seccion activa-->
+    <script src="/static/js/seccion_Activa.js"></script>
+    <script src="/static/js/manejoMensaje.js"></script>
+
+    
+
 </body>
 
 </html>
