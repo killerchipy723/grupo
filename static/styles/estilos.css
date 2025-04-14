@@ -212,6 +212,35 @@ a.sidebar-link:hover {
   .flash-message.fade-out {
     opacity: 0;
   }
+
+  /* Centrar vertical y horizontal */
+.contenedor-imagen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* altura completa de la ventana */
+}
+
+/* Tamaño de la imagen */
+.contenedor-imagen img {
+  max-width: 100%;   /* o 300px, lo que prefieras */
+  height: auto;
+  border-radius: 10px; /* opcional, para esquinas redondeadas */
+  margin-top: 0;
+}
+
+#tablaevento table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#tablaevento th, 
+#tablaevento td {
+  padding: 10px;
+  text-align: left;
+}
+
+
   
 
 /* Screen size less than 768px */

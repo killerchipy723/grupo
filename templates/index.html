@@ -61,7 +61,7 @@
                         </li>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link d-block ps-3 small  ms-5 " style="font-size: 13px;"
-                                onclick="mostrarSeccion('verEvento')">Ver Eventos</a>
+                                onclick="mostrarSeccion('tablaevento')">Ver Eventos</a>
                         </li>
                     </ul>
                 </li>
@@ -129,10 +129,18 @@
             {% endif %}
             {% endwith %}
             </div>
+               
             <main class="p-3">              
                 
-                <!-- Secciones -->
+                <!-- ################## Secciones #####################################-->
+                 <!-- Seccion Principal-->
                 <div class="container-fluid">
+                    <section id="principal" class="seccion">
+                        <div class="contenedor-imagen">
+                          <img src="/static/img/portafolio.jpg" alt="main">
+                        </div>            
+                      </section>
+                      
                     
                     <!-- Registro de alumnos -->
                     <section id="alumnos" class="seccion">
@@ -189,6 +197,37 @@
                             </div>
                             <input type="submit" name="enviar" value="Registrar" class="btn btn-primary mt-3">
                         </form>
+                    </section>
+                    <!-- Seccion tabla eventos -->
+                    <section id="tablaevento" class="seccion">
+                        <h2>LISTADO DE EVENTOS</h2>
+                        <table class="table table-bordered-primary">
+                            <thead>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>EVENTO</td>
+                                    <td>FECHA</td>
+                                    <td>ACCIONES</td>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {%for evto in evento%}
+                                <tr>
+                                    <td>{{evto[0]}}</td>
+                                    <td>{{evto[1]}}</td>
+                                    <td>{{evto[2]}}</td>
+                                    <td>
+                                        <a class="btn btn-warning" href="#">Editar</a>
+                                        <a class="btn btn-danger" href="#">Eliminar</a>
+                                    </td>
+                                </tr>
+                                {%endfor%}
+                            </tbody>
+
+                        </table>
+                        
+                      
                     </section>
                     <!-- Seccion de Grupo Familiares -->
                     <section id="grupo" class="seccion">

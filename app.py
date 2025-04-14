@@ -130,7 +130,6 @@ def gen_ficha():
             estado = request.form['estado']
             importe = request.form['importe']
             obs = request.form['obs']
-
             query = 'INSERT INTO ficha(idevento, idalumno, fecha, estado, importe, obs) VALUES (%s, %s, %s, %s, %s, %s)'
             cursor = conexion.cursor()
             cursor.execute(query, (idevento, idalumno, fecha, estado, importe, obs))
